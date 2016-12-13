@@ -1,1 +1,1 @@
-# IEMS_EAU
+This git repository contains exercises of Johannes.
