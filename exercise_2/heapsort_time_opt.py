@@ -78,8 +78,9 @@ def plotList(timeTable):
 if __name__ == "__main__":
     timeTable = {}
 
-    for j in range(5):  # terate through decades
+    for j in range(6):  # terate through decades
         dec = pow(10, j)
+        # for index, i in enumerate([1, 2, 3, 4, 5, 6, 7, 8, 9]):
         for i in range(3):  # iterate the steps 1, 2 and 5
             value = (i * i + 1) * dec
             numbers = generateList(value)
