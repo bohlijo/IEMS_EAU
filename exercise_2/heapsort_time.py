@@ -72,37 +72,26 @@ def heapSort(heap):
     return result
 
 
+def plotList(timeTable):
+    plt.plot(timeTable.keys(), timeTable.values(), 'ro')
+    # plt.yscale('log')
+    plt.xscale('log')
+    plt.show()
+
 if __name__ == "__main__":
     timeTable = {}
 
-    for j in range(4):
+    for j in range(3):  # terate through decades
         dec = pow(10, j)
-        for i in range(3):
+        for i in range(3):  # iterate the steps 1, 2 and 5
             value = (i * i + 1) * dec
             numbers = generateList(value)
-            timestamp = time.clock()
+            timestamp = time.time()
             heapify(numbers)
             result = heapSort(numbers)
-            timediff = time.clock() - timestamp
-            timeTable[value] = int(timediff * 1000000)
+            timediff = time.time() - timestamp
+            timeTable[value] = int(timediff * 1000)  # ms
 
-    print(timeTable)
-    keyList = sorted(timeTable.keys())
-    valueList = list()
-    for i in keyList:
-        valueList.append(timeTable[i])
-    plt.bar(range(len(valueList)), valueList, align='center')
-    plt.xticks(range(len(timeTable)), keyList)
-    plt.yscale('log')
-    # plt.bar(range(len(timeTable)), timeTable.values(), align='center')
-    # plt.xticks(range(len(timeTable)), timeTable.keys())
-    # plt.plot(timeTable)
-    plt.show()
+            print("sorted " + str(value) + " elements")
 
-    # timestamp = time.clock()
-
-    # print("result:")
-    # printHeap(result)
-
-    # timediff = time.clock() - timestamp
-    # print("time elapsed: " + str(timediff) + " seconds")
+    plotList(timeTable)
