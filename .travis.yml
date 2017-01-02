@@ -10,5 +10,4 @@ before_install:
 
 script:
 - cd exercise_1 && make all
-- cd ../exercise_2 && make all
 - cd ../exercise_4 && make all

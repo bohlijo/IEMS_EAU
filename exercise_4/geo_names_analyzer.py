@@ -105,9 +105,11 @@ if __name__ == "__main__":
     timestamp = time.time()
     compute_most_frequent_city_names_by_sorting(fileName)
     timediff = time.time() - timestamp
-    print("time elapsed (Sorting): " + str(int(timediff * 1000)) + " ms")  # time diff in ms
+    print("time elapsed (Sort.): " + str(int(timediff * 1000)) + " ms")
+    # time diff in ms
 
     timestamp = time.time()
     compute_most_frequent_city_names_by_map(fileName)
     timediff = time.time() - timestamp
-    print("time elapsed (Map): " + str(int(timediff * 1000)) + " ms")  # time diff in ms
+    print("time elapsed (Map): " + str(int(timediff * 1000)) + " ms")
+    # time diff in ms
