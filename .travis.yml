@@ -8,4 +8,7 @@ before_install:
   - sudo pip install flake8 
 
 
-script: cd exercise_1 && make all
+script:
+- cd exercise_1 && make all
+- cd exercise_2 && make all
+- cd exercise_4 && make all
