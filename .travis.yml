@@ -1,0 +1,5 @@
+language: python
+python:
+  - "3.5"
+
+cd exercise_1 && make all
