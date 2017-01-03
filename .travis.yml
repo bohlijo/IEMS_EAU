@@ -4,6 +4,9 @@ python:
 
 sudo: required 
 
+virtualenv:
+  system_site_packages: true
+
 before_install: 
 - sudo pip install flake8
 - sudo pip install matplotlib
