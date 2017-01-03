@@ -5,8 +5,8 @@ python:
 sudo: required 
 
 before_install: 
-  - sudo pip install flake8 
-
+- sudo pip install flake8
+- sude pip install matplotlib
 
 script:
 - cd exercise_1 && make all
