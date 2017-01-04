@@ -1,0 +1,8 @@
+insertionSort.py
+
+-   used random to generate input list for insertion sort and test with
+    different random input lists
+
+
+ExerciseSheet1_Exercise2.jpg contains an image of the heap defined in Exercise Sheet1 - Exercise 2:
+There are to places in the heap to be fixed by swap (marked in the image)

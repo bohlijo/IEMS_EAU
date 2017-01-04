@@ -3,28 +3,26 @@
 import random
 
 
-def generateList(length):
-    if length > 10000:
-        length = 10000
-
+def generateRandomList(length):
     randList = list()
     for i in range(length):
         randList.append(random.randrange(length))
     return randList
 
 
-def testIncreasing(lst):
+def validateListIsIncreasing(lst):
     """ function to test increasing values in lst
-    >>> testIncreasing([24, 6, 12, 32, 18])
+
+    >>> validateListIsIncreasing([24, 6, 12, 32, 18])
     'false'
 
-    >>> testIncreasing([])
+    >>> validateListIsIncreasing([])
     'false'
 
-    >>> testIncreasing("Hallo")
+    >>> validateListIsIncreasing("Hallo")
     'false'
 
-    >>> testIncreasing([0, 6, 12, 32, 32, 32, 32, 118])
+    >>> validateListIsIncreasing([0, 6, 12, 32, 32, 32, 32, 118])
     'true'
     """
     if not type(lst) == list:
@@ -32,6 +30,7 @@ def testIncreasing(lst):
     if len(lst) == 0:
         return "false"
     for i in range(1, len(lst), 1):
+        # allow only bigger or equal elements following
         if(lst[i] < lst[i - 1]):
             return "false"
     return "true"
@@ -43,7 +42,7 @@ def insertionSort(lst):
     >>> insertionSort([24, 6, 12, 32, 18])
     [6, 12, 18, 24, 32]
 
-    >>> testIncreasing(insertionSort([24, 6, 12, 32, 18]))
+    >>> validateListIsIncreasing(insertionSort([24, 6, 12, 32, 18]))
     'true'
 
     >>> insertionSort([])
@@ -63,6 +62,7 @@ def insertionSort(lst):
         return lst
 
     sortedList = list()
+    # insert first element
     sortedList.append(lst[0])
 
     for i in range(1, n):
@@ -80,7 +80,7 @@ def insertionSort(lst):
 
 if __name__ == "__main__":
     # Create an unsorted list of integers.
-    numbers = generateList(100)
-    print(numbers)
+    numbers = generateRandomList(100)
+    print("unsorted list: " + str(numbers))
     # Sort the list.
-    print(insertionSort(numbers))
+    print("sorted list: " + str(insertionSort(numbers)))
