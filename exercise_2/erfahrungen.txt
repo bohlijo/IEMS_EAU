@@ -1,0 +1,8 @@
+heapsort.py
+
+- see images for time needed for sort
+sort_5000_elements_y_in_ms shows a time plot where 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2.000 and 5.000 elements are sorted
+sort_500000_elements_y_in_ms shows the same time plot but with input counts of up to 500.000 elements ()
+
+Time needed for 5.000 elemets: 500ms
+Time needed for 500.000 elemets: 80.000ms
