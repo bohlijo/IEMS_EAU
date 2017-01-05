@@ -6,3 +6,5 @@ sort_500000_elements_y_in_ms shows the same time plot but with input counts of u
 
 Time needed for 5.000 elemets: 500ms
 Time needed for 500.000 elemets: 80.000ms
+
+Exercises 1 and 2 of exercise sheet 2 are shown in Exercise_Sheet_2.pdf wihtin this directory

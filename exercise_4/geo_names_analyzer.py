@@ -43,22 +43,24 @@ def compute_most_frequent_city_names_by_sorting(fileName):
 
     nameList = []
     for element in read_info_from_file(fileName):
-        nameList.append(element[0])
+        elementFound = False
+        for existingElement in nameList:
+            if existingElement[0] == element[0]:
+                existingElement[1] += 1
+                # index of element found, increase occurrence
+                # and break loop 
+                elementFound = True
+                break
+        if not elementFound:
+            # element not yet in list
+            # -> append element with occurrence = 1
+            nameList.append([element[0], 1])
 
-    nameList.sort()
-    mostFrequnet = nameList[0]
-    frequence = 1
-    for i in range(len(nameList) - 1):
-        currentfreq = 1
-        while(nameList[i] == nameList[i + currentfreq]):
-            currentfreq += 1
-        if currentfreq > frequence:
-            frequence = currentfreq
-            mostFrequnet = nameList[i]
-        i += currentfreq - 1
+    nameList.sort(key=lambda x: x[1])
+    nameList.reverse()
 
-    print(mostFrequnet + " (" + str(frequence) + ")")
-
+    print(nameList[0][0] + "  " + str(nameList[0][1]))
+    print(nameList[1][0] + "  " + str(nameList[1][1]))
 
 def compute_most_frequent_city_names_by_map(fileName):
     """ get most frequnet city name by map
@@ -88,14 +90,15 @@ def compute_most_frequent_city_names_by_map(fileName):
         else:
             nameList[element[0]] = 1
 
-    mostFrequnet = "undefined"
-    frequence = 0
+    nameListUnsorted = []
     for element in nameList:
-        if nameList[element] > frequence:
-            frequence = nameList[element]
-            mostFrequnet = element
-
-    print(mostFrequnet + " (" + str(frequence) + ")")
+        nameListUnsorted.append([element, nameList[element]])
+    
+    nameListUnsorted.sort(key=lambda x: x[1])
+    nameListUnsorted.reverse()
+    
+    print(nameListUnsorted[0][0] + "  " + str(nameListUnsorted[0][1]))
+    print(nameListUnsorted[1][0] + "  " + str(nameListUnsorted[1][1]))
 
 
 if __name__ == "__main__":
