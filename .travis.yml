@@ -1,12 +1,15 @@
 language: python
 python:
-  - "3"
+  - "3.5"
 
 sudo: required 
 
+virtualenv:
+  system_site_packages: true
+
 before_install: 
 - sudo pip install flake8
-sudo apt-get install python3-matplotlib
+- sudo pip install matplotlib
 
 script:
 - cd exercise_1 && make all

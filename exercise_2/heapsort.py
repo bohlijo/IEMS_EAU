@@ -6,6 +6,26 @@ import matplotlib.pyplot as plt
 
 
 def printHeap(heap):
+    """ function print the given heap to the command line
+
+    >>> printHeap([24, 6, 12, 32, 18])
+    [24, 6, 12, 32, 18]
+
+    >>> printHeap("hello")
+    Traceback (most recent call last):
+        ...
+    TypeError: input is not a list
+
+    >>> printHeap([])
+    empty list
+    """
+
+    if not type(heap) == list:
+        raise TypeError("input is not a list")
+    if len(heap) == 0:
+        print("empty list")
+        return
+
     output = "["
     for i in range(0, len(heap) - 1, 1):
         output += str(heap[i]) + ", "
@@ -13,7 +33,7 @@ def printHeap(heap):
     print(output)
 
 
-def generateList(length):
+def generateRandomList(length):
     randList = list()
     for i in range(length):
         randList.append(random.randrange(length))
@@ -24,15 +44,19 @@ def repairHeap(heap, index):
     if index < len(heap):
         min = heap[index]
         minIndex = index
-        if right(heap, index) is not None and right(heap, index)['value'] < min:
+        if right(heap, index) is not None and \
+                right(heap, index)['value'] < min:
             min = right(heap, index)['value']
             minIndex = right(heap, index)['index']
-        if left(heap, index) is not None and left(heap, index)['value'] < min:
+        if left(heap, index) is not None and \
+                left(heap, index)['value'] < min:
             min = left(heap, index)['value']
             minIndex = left(heap, index)['index']
         if index != minIndex:
-            heap[index], heap[minIndex] = heap[minIndex], heap[index]  # swap the elements
-            repairHeap(heap, minIndex)  # sink element if necessary
+            # swap the elements
+            heap[index], heap[minIndex] = heap[minIndex], heap[index]
+            # sift element if necessary
+            repairHeap(heap, minIndex)
 
 
 def heapify(heap):
@@ -58,14 +82,38 @@ def left(heap, index):
 
 
 def heapSort(heap):
+    """ function to sort an input list with heapsort algorithm
+
+    >>> heapSort([24, 6, 12, 32, 18])
+    [6, 12, 18, 24, 32]
+
+    >>> heapSort([1, 1, 1, 1, 1])
+    [1, 1, 1, 1, 1]
+
+    >>> heapSort("hello")
+    Traceback (most recent call last):
+        ...
+    TypeError: input is not a list
+
+    >>> heapSort([])
+    empty list
+    """
+
+    if not type(heap) == list:
+        raise TypeError("input is not a list")
+    if len(heap) == 0:
+        print("empty list")
+        return
+
     heapify(heap)
-    
+
     result = list()
     for i in range(len(heap)):
         result.append(heap[0])
         heap[0] = heap[len(heap) - 1]
         heap.pop(len(heap) - 1)
-        repairHeap(heap, 0)  # repair heap beginning at top of heap to sink down new element
+        # repair heap beginning at top of heap to sink down new element
+        repairHeap(heap, 0)
     return result
 
 
@@ -78,17 +126,25 @@ def plotList(timeTable):
 if __name__ == "__main__":
     timeTable = {}
 
-    for j in range(6):  # terate through decades
+    # calculation steps (uncomment the desired value):
+    # sortingCount = 2  # 1, 2, 5, 10, 20, 50
+    # sortingCount = 3  # 1, 2, 5, 10, ..., 100, 200, 500
+    sortingCount = 4  # 1, 2, 5, 10, ..., 1000, 2000, 5000
+    # sortingCount = 5  # 1, 2, 5, 10, ..., 10000, 20000, 50000
+    # sortingCount = 6  # 1, 2, 5, 10, ..., 100000, 200000, 500000
+
+    for j in range(sortingCount):  # iterate through decades
         dec = pow(10, j)
-        # for index, i in enumerate([1, 2, 3, 4, 5, 6, 7, 8, 9]):
         for i in range(3):  # iterate the steps 1, 2 and 5
             value = (i * i + 1) * dec
-            numbers = generateList(value)
+            numbers = generateRandomList(value)
             timestamp = time.time()
             result = heapSort(numbers)
             timediff = time.time() - timestamp
             timeTable[value] = int(timediff * 1000)  # ms
 
-            print("sorted " + str(value) + " elements")
+            print("sorted " + str(value) + " elements in "
+                  + str(timeTable[value]) + " ms")
+            # printHeap(result)
 
     plotList(timeTable)
