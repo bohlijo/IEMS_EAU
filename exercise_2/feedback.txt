@@ -1,0 +1,26 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct. Use IH (induction hypothesis) or IA (induction assumption),
+	IB (induction base) and IS (induction step) as markers for each step.
+
+Exercise 2:
+	Small flaw in your last two terms, but ok.
+
+Exercise 3:
+	Correct.
+
+Some Python tips:
+	If you construct a range with a step size of 1 you can omit this parameter:
+	range(0, len(heap) - 1)
+	If the range starts at 0 you can omit the start parameter too:
+	range(len(heap) - 1)
+
+	You can access the last element of a list with the index of -1.
+	So you can use heap[-1] instead of heap[len(heap) - 1].
+
+	The pop operation removes the last item of the list.
+	So heap.pop(len(heap) - 1) can be simplified to heap.pop().
+
+Don't hesitate to ask if you need help or something is unclear.
