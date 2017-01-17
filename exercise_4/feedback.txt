@@ -1,0 +1,40 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	read_info_from_file: Ok
+	compute_most_frequent_city_names_by_sorting:
+		Th key point of using sorting is that we can presort our whole list
+		of city names with the name as key.
+		This results in a list which contains "blocks" or "areas" with the
+		same city name.
+		The only thing left is to count the length of each block / area with
+		the resulting length corresponding to the frequency of the city name.
+		If we take the current simple list approach we get a resulting runtime
+		of O(n) * O(n) which is O(n^2).
+
+		If we sort the list before counting the city names we have a resulting
+		runtime of O(n log n) (e.g. heapsort) + O(n) (counting) = O(n log n)
+		which is faster for larger data sizes.
+
+		See feedback/geo_names_analyzer.py for a possible implementation.
+
+	compute_most_frequent_city_names_by_map: Ok
+
+Exercise 2:
+	The problem with the current approach is that the loading of the input data
+	is not separated from the actual processing.
+	This normally has the benefit that both processes can run interleaved
+	but in our case we only want to measure the runtime of our sorting / map
+	algorithm. Since the actual processing takes less than a second (normally)
+	the noise of loading the data file will be a lot higher than the actual
+	runtime we want to measure. So separating the loading and processing of
+	the data is neccessary.
+
+	See feedback/geo_names_analyzer.py ...
+
+	Another tip: Try the module "timeit". This provides timing functionalities
+	for (small) code snippets and disables internal features which might
+	affect the timing (garbage collector, ...).
+
+Don't hesitate to ask if you need help or something is unclear.
