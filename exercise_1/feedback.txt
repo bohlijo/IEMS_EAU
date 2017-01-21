@@ -1,0 +1,33 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct
+
+Exercise 2:
+	Correct
+
+Some Python tips:
+	Python's boolean datatype uses the identifiers True and False.
+	So
+		return "false"
+	should be
+		return False
+
+	Doctest will automatically convert the returned value of the test into
+	a testable string:
+	>>> validateListIsIncreasing([])
+	False
+
+	You might even combine multiple expressions via the "and" or "or" logical
+	expression:
+	if not type(lst) == list or len(lst) == 0:
+		return False
+
+	You can create a list by using the bracked notation:
+	sortedList = []
+
+	If you want to create a dictionary you can use curved brackets:
+	dict = {}
+
+Don't hesitate to ask if you need help or something is unclear.
