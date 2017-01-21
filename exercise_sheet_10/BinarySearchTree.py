@@ -1,6 +1,7 @@
 import random
 import time
 
+
 class TreeNode:
     def __init__(self, key, value):
         self.key = key
@@ -30,6 +31,17 @@ class TreeNode:
         return self.value
 
     def toString(self):
+        """ convert tree to string representation
+        >>> searchTree = BinarySearchTree()
+        >>> searchTree.toString()
+        empty
+
+        >>> searchTree = BinarySearchTree()
+        >>> searchTree.insert(1, "test1")
+        >>> searchTree.toString()
+        [(1, "test1"), left: None, right: None]
+        """
+
         stringRight = "None"
         stringLeft = "None"
         if self.getRightChild() is not None:
@@ -58,8 +70,10 @@ class BinarySearchTree():
         >>> searchTree.insert(1, "test1")
         >>> searchTree.insert(5, "test5")
         >>> searchTree.toString()
-        [(1, "test1"), left: None, right: [(5, "test5"), left: None, right: None]]
+        [(1, "test1"), left: None, right: [(5, "test5"), \
+left: None, right: None]]
         """
+
         if self.firstNode is None:
             self.firstNode = TreeNode(key, value)
         else:
@@ -69,15 +83,29 @@ class BinarySearchTree():
             else:
                 if key > parentForInsertion.getKey():
                     parentForInsertion.setRightChild(TreeNode(key, value))
-                    # print("right " + str(parentForInsertion.getKey()) + " " + str(key) + " " + str(value))
+                    # print("right " + str(parentForInsertion.getKey()) +
+                    # " " + str(key) + " " + str(value))
                 elif key < parentForInsertion.getKey():
                     parentForInsertion.setLeftChild(TreeNode(key, value))
-                    # print("left " + str(parentForInsertion.getKey()) + " " + str(key) + " " + str(value))
+                    # print("left " + str(parentForInsertion.getKey()) +
+                    # " " + str(key) + " " + str(value))
                 else:
                     parentForInsertion.setValue(value)
-                    # print("change " + str(parentForInsertion.getKey()) + " " + str(key) + " " + str(value))
+                    # print("change " + str(parentForInsertion.getKey()) +
+                    # " " + str(key) + " " + str(value))
 
     def findInsertionNode(self, key):
+        """ function to lookup a node
+        >>> searchTree = BinarySearchTree()
+        >>> searchTree.insert(10, "test10")
+        >>> searchTree.insert(1, "test1")
+        >>> searchTree.insert(12, "test12_1")
+        >>> searchTree.insert(5, "test5")
+        >>> searchTree.insert(12, "test12_2")
+        >>> searchTree.insert(18, "test18")
+        >>> str(searchTree.findInsertionNode(4).getValue())
+        'test5'
+        """
         parentNode = None
         currentNode = self.firstNode
         # if firstNode is None while loop is never run, None is returned
@@ -93,6 +121,28 @@ class BinarySearchTree():
         return parentNode
 
     def lookup(self, key):
+        """ function to lookup a node
+        >>> searchTree = BinarySearchTree()
+        >>> searchTree.insert(10, "test10")
+        >>> searchTree.insert(1, "test1")
+        >>> searchTree.insert(12, "test12_1")
+        >>> searchTree.insert(5, "test5")
+        >>> searchTree.insert(12, "test12_2")
+        >>> searchTree.insert(18, "test18")
+        >>> str(searchTree.lookup(12).getValue())
+        'test12_2'
+
+        >>> searchTree = BinarySearchTree()
+        >>> searchTree.insert(10, "test10")
+        >>> searchTree.insert(1, "test1")
+        >>> searchTree.insert(12, "test12_1")
+        >>> searchTree.insert(5, "test5")
+        >>> searchTree.insert(12, "test12_2")
+        >>> searchTree.insert(18, "test18")
+        >>> str(searchTree.lookup(100) is None)
+        'True'
+        """
+
         currentNode = self.firstNode
         # if firstNode is None while loop is never run, None is returned
         while currentNode is not None:
@@ -124,16 +174,19 @@ def Insert_n_elements(n):
     for i in range(n):
         searchTree.insert(i, str(i))
 
+
 if __name__ == "__main__":
     for i in range(10, 15, 1):
         n_value = 2 ** i
-    
+
         timestamp = time.time()
         Insert_n_random_elements(n_value)
         timediff = time.time() - timestamp
-        print("Insert_n_random_elements(" + str(n_value) + "): " + str(timediff))
+        print("Insert_n_random_elements(" + str(n_value) + "): " +
+              str(timediff))
 
         timestamp = time.time()
         Insert_n_elements(n_value)
         timediff = time.time() - timestamp
-        print("Insert_n_elements(" + str(n_value) + "): " + str(timediff))
+        print("Insert_n_elements(" + str(n_value) + "): " +
+              str(timediff))
