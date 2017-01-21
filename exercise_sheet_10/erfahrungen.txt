@@ -1,0 +1,22 @@
+
+
+Impelementation for insert: 1 hour
+Impelementation for lookup: 10 min (was nearly included in insert)
+
+
+Measurements (in s):
+
+Insert_n_elements(1024): 1.264655590057373
+Insert_n_random_elements(1024): 0.08249306678771973
+
+Insert_n_elements(2048): 5.017242908477783
+Insert_n_random_elements(2048): 0.16506671905517578
+
+Insert_n_elements(4096): 20.19504690170288
+Insert_n_random_elements(4096): 0.3227686882019043
+
+Insert_n_elements(8192): 82.55665373802185
+Insert_n_random_elements(8192): 0.6847977638244629
+
+Insert_n_elements(16384): 323.33799266815186
+Insert_n_random_elements(16384): 1.4461126327514648
