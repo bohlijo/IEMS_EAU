@@ -1,0 +1,12 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct and cleanly implemented.
+
+Exercise 2:
+	Correct. A plot of the runtime would result in the following runtimes:
+		Ordered: O(n^2)
+		Random: O(n log n)
+
+Don't hesitate to ask if you need help or something is unclear.
