@@ -9,5 +9,5 @@ before_install:
 
 script:
 - cd exercise_sheet_01 && make all
-- cd ../exercise_sheet_02 && make all
+- cd ../exercise_sheet_04 && make all
 - cd ../exercise_sheet_05 && make all
