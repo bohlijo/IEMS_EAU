@@ -12,6 +12,6 @@ before_install:
 - sudo pip install matplotlib
 
 script:
-- cd exercise_1 && make all
-- cd ../exercise_2 && make all
-- cd ../exercise_4 && make all
+- cd exercise_sheet_01 && make all
+- cd ../exercise_sheet_02 && make all
+- cd ../exercise_sheet_05 && make all
