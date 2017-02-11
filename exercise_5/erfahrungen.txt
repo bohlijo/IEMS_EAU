@@ -1,0 +1,52 @@
+
+exercise 1:
+universe: 0..99999
+prime: 100003
+hashTableSize: 500
+HashFunction: ((46471 * x + 71807) mod 100003) mod 500
+mean bucket size is 8.0
+
+
+
+exercise 2:
+universe: 0..94
+prime: 97
+hashTableSize: 60
+best c value is 0.368421052632
+
+
+
+exercise 3:
+universe: 0..94
+prime: 97
+count of keys: 75
+count of key sets: 10
+hashTableSize: 60
+min c: 0.424489795918
+mean c: 0.472079581139
+max c: 0.533333333333
+
+
+
+exercise 4 (hash is universal):
+universe: 0..99
+prime: 101
+count of keys: 20
+count of key sets: 1000
+hashTableSize: 100
+min c: 0.0
+mean c: 0.507168411224
+max c: 3.33333333333
+
+
+exercise 4 (hash is NOT universal):
+universe: 0..99
+prime: 10
+count of keys: 20
+count of key sets: 1000
+hashTableSize: 100
+min c: 5.0
+mean c: 6.56579365079
+max c: 11.6666666667
+
+
