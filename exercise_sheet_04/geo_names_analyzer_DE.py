@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-import time
-import os.path
-
 # global file definition
 fileName = ""
 
@@ -58,26 +55,24 @@ def compute_most_frequent_city_names_by_sorting_DE():
                 # -> append element with occurrence = 1
                 nameList.append([element[0], 1, False])
 
-    nameList = [element for element in nameList if element[2] == True]
+    nameList = [element for element in nameList if element[2] is True]
     nameList.sort(key=lambda x: x[1])
     nameList.reverse()
 
     return nameList
 
 
-
 if __name__ == "__main__":
-    #fileName = "../AT.txt"
+    # fileName = "../AT.txt"
     fileName = "../allCountries.txt"
 
     result = compute_most_frequent_city_names_by_sorting_DE()
     if len(result) > 0:
         print(result[0][0] + "  " +
-            str(result[0][1]))
+              str(result[0][1]))
     if len(result) > 1:
         print(result[1][0] + "  " +
-            str(result[1][1]))
+              str(result[1][1]))
     if len(result) > 2:
         print(result[2][0] + "  " +
-            str(result[1][1]))
-
+              str(result[1][1]))

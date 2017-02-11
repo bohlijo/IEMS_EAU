@@ -108,6 +108,7 @@ def compare_runtimes():
     print("time elapsed (Map): " + str(int(timediff * 1000)) + " ms")
     # time diff in ms
 
+
 if __name__ == "__main__":
     #  fileName = "../AT.txt"
     fileName = "../allCountries.txt"
