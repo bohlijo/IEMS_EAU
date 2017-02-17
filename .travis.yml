@@ -11,4 +11,5 @@ script:
 - cd exercise_sheet_01 && make all
 - cd ../exercise_sheet_04 && make all
 - cd ../exercise_sheet_05 && make all
+- cd ../exercise_sheet_06 && make all
 - cd ../exercise_sheet_10 && make all

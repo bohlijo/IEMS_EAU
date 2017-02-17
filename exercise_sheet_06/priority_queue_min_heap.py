@@ -61,16 +61,165 @@ class PriorityQueueMinHeap:
         ...
     """
 
-    def insert(self, key, value):
-        # define index of new element
-        index = 0
-        # create new PriorityQueueItem element
-        element = PriorityQueueItem(key, value, index)
-        # add element to _list
-        self._list.append(element)
-        # return element
-        return element
+    def _getParentIndex(self, index):
+        """ returns the parent index of a given index
+        >>> p1 = PriorityQueueMinHeap()
+        >>> p1._getParentIndex(37)
+        18
+        >>> p1._getParentIndex(38)
+        18
+        >>> p1._getParentIndex(0)
+        -1
+        """
+        if index <= 0:
+            return -1
+        else:
+            return (index - 1) // 2  # floor division
 
+    def _getRightChildIndex(self, index):
+        return index * 2 + 2
+
+    def _getLeftChildIndex(self, index):
+        return index * 2 + 1
+
+    def _getSmallestKeyIndex(self, item):
+        parentIndex = item.get_heap_index()
+        leftChildIndex = self._getLeftChildIndex(parentIndex)
+        rightChildIndex = self._getRightChildIndex(parentIndex)
+
+        smallest = parentIndex
+
+        if leftChildIndex < self.size():
+            # at least left child existant
+            if self._list[parentIndex]._key >\
+               self._list[leftChildIndex]._key:
+                smallest = leftChildIndex
+            if rightChildIndex < self.size():
+                # right child existant
+                if self._list[smallest]._key >\
+                   self._list[rightChildIndex]._key:
+                    smallest = rightChildIndex
+        return smallest
+
+    def _getParentItem(self, startItem):
+        if startItem.get_heap_index() == 0:
+            # no parent present
+            return None
+        else:
+            return self._list[self._getParentIndex(startItem.
+                                                   get_heap_index())]
+
+    def _repair_heap_up(self, startItem):
+        resultItem = startItem
+        parentItem = self._getParentItem(startItem)
+        if parentItem is not None:
+            if parentItem._key > startItem._key:
+                self._swap_items(startItem.get_heap_index(),
+                                 parentItem.get_heap_index())
+                resultItem = self._repair_heap_up(startItem)
+        return resultItem
+
+    def _repair_heap_down(self, startItem):
+        resultItem = startItem
+        swapIndex = self._getSmallestKeyIndex(startItem)
+        if swapIndex != startItem.get_heap_index():
+            self._swap_items(swapIndex, startItem.get_heap_index())
+            resultItem = self._repair_heap_down(self._list[swapIndex])
+        return resultItem
+
+    def _swap_items(self, index_1, index_2):
+        """
+        >>> pq1 = PriorityQueueMinHeap()
+        >>> pq1.insert(1, "first element")._key
+        1
+        >>> pq1.insert(10, "second element")._key
+        10
+        >>> unused = pq1.insert(12, "third element")
+        >>> unused = pq1.insert(15, "fourth element")
+        >>> pq1._list[0]._value
+        'first element'
+        >>> pq1._swap_items(0, 1)
+        >>> pq1._list[0]._value
+        'second element'
+        """
+        temp = self._list[index_1]
+        self._list[index_1] = self._list[index_2]
+        self._list[index_1].set_heap_index(index_1)
+        self._list[index_2] = temp
+        self._list[index_2].set_heap_index(index_2)
+
+    def insert(self, key, value):
+        # define index of new element (last position of _list)
+        index = self.size()
+        # create item
+        item = PriorityQueueItem(key, value, index)
+        # add item to _list
+        self._list.append(item)
+        # repair heap up from last element
+        return self._repair_heap_up(item)
+
+    def get_min(self):
+        if len(self._list) > 0:
+            return self._list[0]
+        else:
+            return None
+
+    def delete_min(self):
+        """
+        >>> pq1 = PriorityQueueMinHeap()
+        >>> unused = pq1.insert(1, "first element")
+        >>> unused = pq1.insert(10, "second element")
+        >>> pq1.size()
+        2
+        >>> pq1.delete_min()
+        >>> pq1.size()
+        1
+        >>> pq1.delete_min()
+        >>> pq1.size()
+        0
+        >>> pq1.delete_min()
+        >>> pq1.size()
+        0
+        """
+        if len(self._list) > 0:
+            # move last element to first position
+            self._list[0] = self._list[-1]
+            self._list[0].set_heap_index(0)
+            # pop last element
+            self._list.pop()
+            # repair heap down from first element (index 0)
+            # but only if elements left in list
+            if self.size() > 0:
+                self._repair_heap_down(self._list[0])
+
+    def change_key(self, item, key):
+        """
+        >>> pq1 = PriorityQueueMinHeap()
+        >>> unused = pq1.insert(1, "first element")
+        >>> unused = pq1.insert(10, "second element")
+        >>> item3 = pq1.insert(12, "third element")
+        >>> unused = pq1.insert(15, "fourth element")
+        >>> newItem3 = pq1.change_key(item3, 100)
+        >>> newItem3._key
+        100
+        """
+        newKeyIsSmaller = key < item._key
+        item._key = key
+        if newKeyIsSmaller and item.get_heap_index() != 0:
+            # new key is smaller and parent exists: repair up
+            return self._repair_heap_up(item)
+        else:
+            # new key is smaller/equal: repair down
+            return self._repair_heap_down(item)
+
+    def size(self):
+        return len(self._list)
+
+    def printPriorityHeap(self):
+        print("heap size: " + str(self.size()))
+        for item in self._list:
+            print(str(item._key) + ", " + str(item._value) + " [" +
+                  str(item.get_heap_index()) + "]")
 
 if __name__ == "__main__":
     # Create priority queue object.
@@ -79,4 +228,19 @@ if __name__ == "__main__":
     pq1_item1 = pq1.insert(1, "Airforce One")
     pq1_item2 = pq1.insert(45, "Bermuda Triangle Blues (Flight 45)")
     pq1_item3 = pq1.insert(666, "Flight 666")
-    # ....
+    pq1_item4 = pq1.insert(2, "test")
+    pq1.printPriorityHeap()
+
+    unused = pq1.insert(5, "test")
+    unused = pq1.insert(12, "test")
+    unused = pq1.insert(16, "test")
+    unused = pq1.insert(6, "test")
+    unused = pq1.insert(100, "test")
+    pq1.printPriorityHeap()
+
+    pq1_item4_new = pq1.change_key(pq1_item4, 333)
+    pq1.printPriorityHeap()
+
+    print("min value: " + str(pq1.get_min()._value))
+    pq1_item1_new = pq1.change_key(pq1_item1, 1000)
+    print("min value: " + str(pq1.get_min()._value))
