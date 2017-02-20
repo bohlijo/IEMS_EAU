@@ -1,0 +1,185 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+mean_bucket_size:
+	You could estimate the mean bucket size by only tracking which buckets are
+	used. Since the exact number of keys stored in a bucket is irrelevant for
+	the average size we can implement the list of used buckets as 'set'
+	and then count the number of elements in this set. Since all keys are
+	saved in the buckets we can derive the element count from the input
+	parameter.
+	Here is an example:
+
+def mean_bucket_size(keys, hfunc):
+    buckets = {}
+    for key in keys:
+        # We set our bucket as "used"
+        buckets[hfunc.apply(key)] = 1
+
+    # We don't need to know which key lands in which bucket since we are
+    # only taking the average and we know the number of keys which would be
+    # placed into our buckets
+    return len(keys) / len(buckets)
+
+estimate_c_for_single_set:
+	Correct
+
+estimate_c_for_multile_sets:
+	Correct
+
+create_random_universe_subset:
+	Since we want to have a key universe with unique keys you have to check
+	whether the key already exists in this universe.
+	This could be done with the following method:
+
+def create_random_universe_subset(key_count, universe_size):
+    key_list = []
+
+    while len(key_list) < key_count:
+        key = random.randrange(universe_size)
+        if key not in key_list:
+            key_list.append(key)
+
+    return key_list
+
+	But since the exercise is done with python there is a simpler way:
+
+def create_random_universe_subset(key_count, universe_size):
+    """Select key_count unique keys from the provided universe."""
+    return random.sample(range(universe_size), key_count)
+
+
+Python tips:
+	You can print a string with embedded formatted data with the percent sign:
+
+    # This would print all three values embedded into the string with two
+    # fractional places after the decimal point
+    print('min: %.2f, max: %.2f, avg: %.2f' % (min, max, avg))
+
+    # Prints the universe range
+    print('universe: 0..%d' % (universeSize - 1))
+
+	Here is a list with all format parameters:
+	http://www.cplusplus.com/reference/cstdio/printf/
+
+
+Regarding your results:
+	Exercise 1:
+		mean bucket size is 8.0
+
+		Since you are mapping 4000 keys on 500 buckets the average of used
+		buckets is 4000 / 500 = 8.
+		(Since you are using a universal hash function)
+
+	Exercise 2:
+		Since you are mapping only 95 keys from 0 to 94 onto your hash map
+		the result will be:
+		(Since you are using a universal hash function and all buckets are
+		 mapped to)
+		mean_bucket_size = 95 / 60 ~= 1.58
+
+		With this the resulting c value will be smaller than 1 because:
+		c = (mean_bucket_size - 1) * 60 / 95 = 0.58 * 60 / 95 = 0,366
+
+		If you raise the number of keys the resulting value converges to 1.
+
+		Example:
+		universe: 0..49999
+		prime: 97
+		hashTableSize: 60
+		keys: 500
+		best c value is 0.988
+
+	Exercise 3: (Here too)
+		The applied key set is too small to let the c-value converge to 1.
+
+		Example:
+		universe: 0..49999
+		prime: 97
+		count of keys: 5000
+		count of key sets: 10
+		hashTableSize: 60
+		min c: 0.988
+		mean c: 0.9879999999999998
+		max c: 0.988
+
+	Exercise 4:
+		Here is a comparison between both hash functions.
+		With a larger tested key set both c-values will converge to 1.
+		This is due to the use of estimate_c_for_single_set.
+		We are measuring the 'minimum' c-value for 1000 hash functions.
+		Since the possibility for a 'lucky hit' for the non-universal hash
+		function is quite high the c-value is nearly 1 and with that we
+		receive an equivalent result to that of the universal hash function.
+
+		exercise 4 (universal):
+		universe: 0..999
+		prime: 101
+		count of keys: 500
+		count of key sets: 100
+		hashTableSize: 10
+		min c: 0.98
+		mean c: 0.9800000000000004
+		max c: 0.98
+
+		exercise 4 (not universal):
+		universe: 0..999
+		prime: 10
+		count of keys: 500
+		count of key sets: 100
+		hashTableSize: 10
+		min c: 0.98
+		mean c: 0.9800000000000004
+		max c: 0.98
+
+		If we decrease the number of tries to estimate the c-value for
+		a hash function the result is different.
+
+def estimate_c_for_single_set(setOfKeys, hashFunction):
+    best_c_value = None
+    for i in range(3):  # Only three tries
+        ...
+
+		exercise 4 (universal):
+		universe: 0..999
+		prime: 101
+		count of keys: 500
+		count of key sets: 100
+		hashTableSize: 10
+		min c: 0.98
+		mean c: 0.9800000000000004
+		max c: 0.98
+
+		exercise 4 (not universal):
+		universe: 0..999
+		prime: 10
+		count of keys: 500
+		count of key sets: 100
+		hashTableSize: 10
+		min c: 0.98
+		mean c: 1.160000000000001
+		max c: 1.98
+
+		Here the c-value for the non-universal hash function is NOT minimized
+		and provides a better understanding for the c-universality.
+
+		This also takes effect when we use a non-universal hash function which
+		maps only to a portion of the hash map. So your result is totally
+		plausible because we map 20 keys onto 10 of 100 buckets.
+		This is the best result the function might achieve:
+		mean_bucket_size = 20 / 10 = 2
+		c-value = (mean_bucket_size - 1) * 100 / 20 = 1 * 100 / 20 = 5
+
+		exercise 4 (hash is NOT universal):
+		universe: 0..99
+		prime: 10
+		count of keys: 20
+		count of key sets: 1000
+		hashTableSize: 100
+		min c: 5.0
+		mean c: 6.56579365079
+		max c: 11.6666666667
+
+	I hope this helps understanding c-universal hash functions.
+
+Don't hesitate to ask if you need help or something is unclear.
