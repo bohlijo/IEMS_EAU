@@ -221,6 +221,7 @@ class PriorityQueueMinHeap:
             print(str(item._key) + ", " + str(item._value) + " [" +
                   str(item.get_heap_index()) + "]")
 
+
 if __name__ == "__main__":
     # Create priority queue object.
     pq1 = PriorityQueueMinHeap()
