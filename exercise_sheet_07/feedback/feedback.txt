@@ -1,0 +1,41 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+append: OK
+remove: OK
+
+If you want to plot the runtime per provided input size you could set the
+input size as additional parameter for your test function.
+See "linear.png" and "alternating.png" for the result.
+
+def test1(n_value):
+	dynArray = DynamicIntArray()
+
+	timestamp = time.time()
+	for i in range(n_value):
+		dynArray.append(i)
+	timediff = time.time() - timestamp
+	print("Time for (" + str(n_value) + ") append operations: " +
+		  str(timediff))
+
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--test1', dest='action', action='store_const', const=test1)
+	...
+
+	args = parser.parse_args()
+	if args.action == test1:
+		n_value = 1000000
+		samples = 10
+
+		print("Test 1")
+		for sample in range(samples):
+			test1((sample + 1) / samples * n_value)
+
+	elif args.action == test2:
+		...
+
+	else:
+		print("no arguments given")
+
+Don't hesitate to ask if you need help or something is unclear.
