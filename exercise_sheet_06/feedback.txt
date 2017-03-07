@@ -1,0 +1,38 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Helper methods:
+	_getParentIndex: OK
+	_getRightChildIndex: OK
+	_getLeftChildIndex: OK
+	_getSmallestKeyIndex: OK
+	_getParentItem: OK
+	_swap_items: OK
+
+	_repair_heap_up: Correct
+	_repair_heap_down: Correct
+
+Priority queue:
+	change_key: Correct
+	insert: Correct
+	get_min: Correct
+	delete_min: Correct
+		You could directly return the removed item to avoid the unnecessary
+		combination of 'get_min' and 'delete_min' to 'pop' the first element.
+	size: Correct
+
+Python Tips:
+	You can swap items in Python by using a tuple:
+	(a, b) = (b, a)
+
+	The brackets can be omitted:
+	a, b = b, a
+
+	This would reduce the swap operation to:
+	self._list[index_1], self._list[index_2] =\
+		self._list[index_2], self._list[index_1]
+
+	self._list[index_1].set_heap_index(index_1)
+	self._list[index_2].set_heap_index(index_2)
+
+Don't hesitate to ask if you need help or something is unclear.
