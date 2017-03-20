@@ -8,5 +8,6 @@ Exercise 2:
 	Correct. A plot of the runtime would result in the following runtimes:
 		Ordered: O(n^2)
 		Random: O(n log n)
+	See runtime_and_depth.png for an example.
 
 Don't hesitate to ask if you need help or something is unclear.
